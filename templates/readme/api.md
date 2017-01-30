@@ -3,7 +3,7 @@
 The API is here in case you want to wrap this with your CI toolset.
 
 ```js
-const npmCheck = require('npm-check');
+const npmCheck = require('ncheck');
 
 npmCheck(options)
   .then(currentState => console.log(currentState.get('packages')));
@@ -33,7 +33,7 @@ npmCheck(options)
 
 ### `cwd`
 
-* Override where `npm-check` checks.
+* Override where `ncheck` checks.
 * default is `process.cwd()`
 
 ### `saveExact`
@@ -44,7 +44,7 @@ npmCheck(options)
 
 ### `currentState`
 
-The result of the promise is a `currentState` object, look in [state.js](https://github.com/dylang/npm-check/blob/master/lib/util/state.js) to see how it works.
+The result of the promise is a `currentState` object, look in [state.js](https://github.com/dylang/ncheck/blob/master/lib/util/state.js) to see how it works.
 
 You will probably want `currentState.get('packages')` to get an array of packages and the state of each of them.
 

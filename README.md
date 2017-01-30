@@ -1,42 +1,26 @@
-npm-check
+ncheck
 =========
-[![Build Status](https://travis-ci.org/dylang/npm-check.svg?branch=master)](https://travis-ci.org/dylang/npm-check)
-[![NPM version](https://badge.fury.io/js/npm-check.svg)](http://badge.fury.io/js/npm-check)
-[![Dependency Status](https://img.shields.io/david/dylang/npm-check.svg)](https://david-dm.org/dylang/npm-check)
-[![npm](https://img.shields.io/npm/dm/npm-check.svg?maxAge=2592000)]()
 
-> Check for outdated, incorrect, and unused dependencies.
+> 检查项目中是否存在 过时 错误 多余 的模块.
 
 <img width="796" alt="npm-check -u" src="https://cloud.githubusercontent.com/assets/51505/9569917/96947fea-4f48-11e5-9783-2d78077256f2.png">
 
-### Features
+### 特点
 
-* Tells you what's out of date.
-* Provides a link to the package's documentation so you can decide if you want the update.
-* Kindly informs you if a dependency is not being used in your code.
-* Works on your globally installed packages too, via `-g`.
-* **Interactive Update** for less typing and fewer typos, via `-u`.
-* Supports public and private [@scoped/packages](https://docs.npmjs.com/getting-started/scoped-packages).
-* Supports ES6-style [`import from`](http://exploringjs.com/es6/ch_modules.html) syntax.
-* Upgrades your modules using your installed version of npm, including the new `npm@3`, so dependencies go where you expect them.
-* Works with any public npm registry, [private registries](https://www.npmjs.com/enterprise), and alternate registries like [Sinopia](https://github.com/rlidwka/sinopia).
-* Does not query registries for packages with `private: true` in their package.json.
-* Emoji in a command-line app, because command-line apps can be fun too.
-* Works with `npm@2` and `npm@3`, as well as newer alternative installers like `ied` and `pnpm`.
+* 帮你找出项目引用的模块是否有更新.
+* 提供更新详情以及提供模块主页，让你可以判断是否更新.
+* 告知项目中没有用到的模块.
+* 可以在全局中工作, 通过 `-g`.
 
-### Requirements
+### 需求
 * Node >= 0.11.
 
-### On the command line
-
-This is the easiest way to use `npm-check`.
-
-### Install
+### 安装
 ```bash
-$ npm install -g npm-check
+$ npm install -g ncheck
 ```
 
-### Use
+### 使用
 ```bash
 $ npm-check
 ```

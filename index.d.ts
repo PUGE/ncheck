@@ -45,6 +45,6 @@ declare module NpmCheck {
   
 }
 
-declare module "npm-check" {
+declare module "ncheck" {
     export = NpmCheck.default;
 }

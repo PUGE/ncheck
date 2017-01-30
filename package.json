@@ -1,6 +1,6 @@
 {
-  "name": "npm-check",
-  "version": "5.4.0",
+  "name": "ncheck",
+  "version": "5.5.1",
   "description": "Check for outdated, incorrect, and unused dependencies.",
   "main": "lib",
   "engines": {
@@ -29,11 +29,11 @@
     }
   },
   "bin": {
-    "npm-check": "bin/cli.js"
+    "ncheck": "bin/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dylang/npm-check.git"
+    "url": "git+https://github.com/PUGE/ncheck.git"
   },
   "keywords": [
     "npm",
@@ -52,15 +52,9 @@
     "installer",
     "devDependencies"
   ],
-  "author": {
-    "name": "Dylan Greene",
-    "email": "dylang@gmail.com"
-  },
+  "author": "puge <my@owo.help>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dylang/npm-check/issues"
-  },
-  "homepage": "https://github.com/dylang/npm-check",
+  "homepage": "https://github.com/PUGE/ncheck",
   "files": [
     "bin",
     "lib",
@@ -103,5 +97,8 @@
     "grunt-templates-dylang": "^1.0.9",
     "load-grunt-tasks": "^3.3.0",
     "xo": "^0.13.0"
+  },
+  "bugs": {
+    "url": "https://github.com/PUGE/ncheck/issues"
   }
 }
