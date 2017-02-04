@@ -1,6 +1,5 @@
-#!/usr/bin/env node
-
 var isEs2015;
+
 try {
     isEs2015 = new Function('() => {}');
 } catch (e) {
