@@ -1,6 +1,6 @@
 {
-  "name": "ncheck",
-  "version": "5.5.1",
+  "name": "puge",
+  "version": "5.5.2",
   "description": "Check for outdated, incorrect, and unused dependencies.",
   "main": "lib",
   "engines": {
