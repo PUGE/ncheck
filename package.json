@@ -1,6 +1,6 @@
 {
   "name": "puge",
-  "version": "5.5.2",
+  "version": "5.5.5",
   "description": "Check for outdated, incorrect, and unused dependencies.",
   "main": "lib",
   "engines": {
