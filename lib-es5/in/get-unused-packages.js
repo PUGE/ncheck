@@ -22,7 +22,7 @@ function skipUnused(currentState) {
 }
 
 function checkUnused(currentState) {
-    var spinner = ora('正在检查未引用的模块.');
+    var spinner = ora('\u6B63\u5728\u68C0\u67E5\u672A\u5F15\u7528\u7684\u6A21\u5757.');
     spinner.enabled = spinner.enabled && currentState.get('spinner');
     spinner.start();
 
