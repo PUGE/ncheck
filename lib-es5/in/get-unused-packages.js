@@ -22,7 +22,7 @@ function skipUnused(currentState) {
 }
 
 function checkUnused(currentState) {
-    var spinner = ora('Checking for unused packages. --skip-unused if you don\'t want this.');
+    var spinner = ora('正在检查未引用的模块.');
     spinner.enabled = spinner.enabled && currentState.get('spinner');
     spinner.start();
 

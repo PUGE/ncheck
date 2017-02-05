@@ -17,55 +17,55 @@ var getUnusedPackages = require('./get-unused-packages');
 var createPackageSummary = require('./create-package-summary');
 
 module.exports = function (currentState) {
-    return co(_regenerator2.default.mark(function _callee() {
-        var spinner, cwdPackageJson, dependencies, allDependencies, allDependenciesIncludingMissing, arrayOfPackageInfo;
-        return _regenerator2.default.wrap(function _callee$(_context) {
-            while (1) {
-                switch (_context.prev = _context.next) {
-                    case 0:
-                        dependencies = function dependencies(pkg) {
-                            if (currentState.get('global')) {
-                                return currentState.get('globalPackages');
-                            }
+        return co(_regenerator2.default.mark(function _callee() {
+                var spinner, cwdPackageJson, dependencies, allDependencies, allDependenciesIncludingMissing, arrayOfPackageInfo;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                        while (1) {
+                                switch (_context.prev = _context.next) {
+                                        case 0:
+                                                dependencies = function dependencies(pkg) {
+                                                        if (currentState.get('global')) {
+                                                                return currentState.get('globalPackages');
+                                                        }
 
-                            if (currentState.get('ignoreDev')) {
-                                return pkg.dependencies;
-                            }
+                                                        if (currentState.get('ignoreDev')) {
+                                                                return pkg.dependencies;
+                                                        }
 
-                            return merge(pkg.dependencies, pkg.devDependencies);
-                        };
+                                                        return merge(pkg.dependencies, pkg.devDependencies);
+                                                };
 
-                        _context.next = 3;
-                        return getUnusedPackages(currentState);
+                                                _context.next = 3;
+                                                return getUnusedPackages(currentState);
 
-                    case 3:
-                        spinner = ora('\u6B63\u5728\u68C0\u67E5\u662F\u5426\u6709\u6A21\u5757\u9700\u8981\u66F4\u65B0.');
+                                        case 3:
+                                                spinner = ora('\u6B63\u5728\u68C0\u67E5\u662F\u5426\u6709\u6A21\u5757\u9700\u8981\u66F4\u65B0.');
 
-                        spinner.enabled = spinner.enabled && currentState.get('spinner');
-                        spinner.start();
+                                                spinner.enabled = spinner.enabled && currentState.get('spinner');
+                                                spinner.start();
 
-                        cwdPackageJson = currentState.get('cwdPackageJson');
-                        allDependencies = dependencies(cwdPackageJson);
-                        allDependenciesIncludingMissing = (0, _keys2.default)(merge(allDependencies, currentState.get('missingFromPackageJson')));
-                        _context.next = 11;
-                        return allDependenciesIncludingMissing.map(function (moduleName) {
-                            return createPackageSummary(moduleName, currentState);
-                        }).filter(Boolean);
+                                                cwdPackageJson = currentState.get('cwdPackageJson');
+                                                allDependencies = dependencies(cwdPackageJson);
+                                                allDependenciesIncludingMissing = (0, _keys2.default)(merge(allDependencies, currentState.get('missingFromPackageJson')));
+                                                _context.next = 11;
+                                                return allDependenciesIncludingMissing.map(function (moduleName) {
+                                                        return createPackageSummary(moduleName, currentState);
+                                                }).filter(Boolean);
 
-                    case 11:
-                        arrayOfPackageInfo = _context.sent;
+                                        case 11:
+                                                arrayOfPackageInfo = _context.sent;
 
 
-                        currentState.set('packages', arrayOfPackageInfo);
+                                                currentState.set('packages', arrayOfPackageInfo);
 
-                        spinner.stop();
-                        return _context.abrupt('return', currentState);
+                                                spinner.stop();
+                                                return _context.abrupt('return', currentState);
 
-                    case 15:
-                    case 'end':
-                        return _context.stop();
-                }
-            }
-        }, _callee, this);
-    }));
+                                        case 15:
+                                        case 'end':
+                                                return _context.stop();
+                                }
+                        }
+                }, _callee, this);
+        }));
 };
