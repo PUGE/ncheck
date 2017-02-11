@@ -13,7 +13,7 @@ ncheck
 * 可以在全局中工作, 通过 `-g`.
 
 ### 需求
-* Node >= 0.11.
+* Node >= 4.0.0
 
 ### 安装
 ```bash
@@ -27,15 +27,11 @@ $ npm-check
 
 <img width="882" alt="npm-check" src="https://cloud.githubusercontent.com/assets/51505/9569919/99c2412a-4f48-11e5-8c65-e9b6530ee991.png">
 
-The result should look like the screenshot, or something nice when your packages are all up-to-date and in use.
 
-When updates are required it will return a non-zero response code that you can use in your CI tools.
-
-### Options
-
+### 参数
 ```
-Usage
-  $ npm-check <path> <options>
+使用
+  $ ncheck <path> <options>
 
 Path
   Where to check. Defaults to current directory. Use -g for checking global modules.
@@ -51,8 +47,8 @@ Options
   --no-emoji            Remove emoji support. No emoji in default in CI environments.
   --debug               Debug output. Throw in a gist when creating issues on github.
 
-Examples
-  $ npm-check           # See what can be updated, what isn't being used.
+实例
+  $ npm-check           # See what can be updated, what isn't being used.
   $ npm-check ../foo    # Check another path.
   $ npm-check -gu       # Update globally installed modules by picking which ones to upgrade.
 ```
