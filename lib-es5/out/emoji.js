@@ -1,8 +1,8 @@
 'use strict';
 
-const emoji = require('node-emoji');
+var emoji = require('node-emoji');
 
-let emojiEnabled = true;
+var emojiEnabled = true;
 
 function output(name) {
     if (emojiEnabled) {

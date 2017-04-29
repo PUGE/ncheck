@@ -1,6 +1,6 @@
 {
   "name": "ncheck",
-  "version": "5.5.8",
+  "version": "5.5.9",
   "description": "Check for outdated, incorrect, and unused dependencies.",
   "main": "bin",
   "engines": {
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "npm run lint && ./bin/cli.js || echo Exit Status: $?.",
     "transpile": "babel bin --out-dir lib-es5",
-    "watch": "babel lib --out-dir lib-es5 --watch",
+    "watch": "babel bin --out-dir lib-es5 --watch",
     "prepublish": "npm run transpile",
     "repos": "grunt repos # required for grunt readme to run",
     "readme": "grunt readme"
@@ -49,31 +49,31 @@
     "lib-es5"
   ],
   "dependencies": {
-    "babel-runtime": "^6.23.0",
-    "callsite-record": "^4.0.0",
+    "babel-runtime": "^6.6.1",
+    "callsite-record": "^3.0.0",
     "chalk": "^1.1.3",
     "co": "^4.6.0",
     "depcheck": "^0.6.3",
-    "execa": "^0.6.3",
+    "execa": "^0.2.2",
     "giturl": "^1.0.0",
     "global-modules": "^0.2.0",
-    "globby": "^6.1.0",
-    "inquirer": "^3.0.6",
+    "globby": "^4.0.0",
+    "inquirer": "^0.12.0",
     "is-ci": "^1.0.8",
     "lodash": "^4.7.0",
     "meow": "^3.7.0",
     "merge-options": "0.0.64",
     "minimatch": "^3.0.2",
     "node-emoji": "^1.0.3",
-    "ora": "^1.2.0",
-    "package-json": "^4.0.1",
-    "path-exists": "^3.0.0",
+    "ora": "^0.2.1",
+    "package-json": "^2.0.1",
+    "path-exists": "^2.1.0",
     "pkg-dir": "^1.0.0",
     "semver": "^5.0.1",
     "semver-diff": "^2.0.0",
     "text-table": "^0.2.0",
-    "throat": "^3.0.0",
-    "update-notifier": "^2.1.0"
+    "throat": "^2.0.2",
+    "update-notifier": "^0.6.3"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -84,8 +84,5 @@
     "grunt-release": "^0.13.0",
     "grunt-templates-dylang": "^1.0.9",
     "load-grunt-tasks": "^3.3.0"
-  },
-  "bugs": {
-    "url": "https://github.com/PUGE/ncheck/issues"
   }
 }

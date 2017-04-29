@@ -1,9 +1,16 @@
 'use strict';
-const mergeOptions = require('merge-options');
-const init = require('./init');
-const debug = require('./debug');
 
-const defaultOptions = {
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mergeOptions = require('merge-options');
+var init = require('./init');
+var debug = require('./debug');
+
+var defaultOptions = {
     update: false,
     global: false,
     cwd: process.cwd(),
@@ -21,7 +28,7 @@ const defaultOptions = {
     ignore: [],
 
     globalPackages: {},
-    cwdPackageJson: {devDependencies: {}, dependencies: {}},
+    cwdPackageJson: { devDependencies: {}, dependencies: {} },
 
     packages: false,
     unusedDependencies: false,
@@ -29,11 +36,11 @@ const defaultOptions = {
 };
 
 function state(userOptions) {
-    const currentStateObject = mergeOptions(defaultOptions, {});
+    var currentStateObject = mergeOptions(defaultOptions, {});
 
     function get(key) {
         if (!currentStateObject.hasOwnProperty(key)) {
-            throw new Error(`Can't get unknown option "${key}".`);
+            throw new Error('Can\'t get unknown option "' + key + '".');
         }
         return currentStateObject[key];
     }
@@ -46,7 +53,7 @@ function state(userOptions) {
         if (currentStateObject.hasOwnProperty(key)) {
             currentStateObject[key] = value;
         } else {
-            throw new Error(`unknown option "${key}" setting to "${JSON.stringify(value, false, 4)}".`);
+            throw new Error('unknown option "' + key + '" setting to "' + (0, _stringify2.default)(value, false, 4) + '".');
         }
     }
 
@@ -64,11 +71,11 @@ function state(userOptions) {
         return currentStateObject;
     }
 
-    const currentState = {
+    var currentState = {
         get: get,
         set: set,
-        all,
-        inspectIfDebugMode
+        all: all,
+        inspectIfDebugMode: inspectIfDebugMode
     };
 
     return init(currentState, userOptions);
