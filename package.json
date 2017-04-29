@@ -73,7 +73,6 @@
     "semver-diff": "^2.0.0",
     "text-table": "^0.2.0",
     "throat": "^2.0.2",
-    "update-notifier": "^0.6.3"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

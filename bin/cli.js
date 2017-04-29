@@ -2,7 +2,6 @@
 'use strict';
 
 const meow = require('meow');
-const updateNotifier = require('update-notifier');
 const isCI = require('is-ci');
 const createCallsiteRecord = require('callsite-record');
 const pkg = require('../package.json');
@@ -11,8 +10,6 @@ const staticOutput = require('./out/static-output');
 const interactiveUpdate = require('./out/interactive-update');
 const debug = require('./state/debug');
 const pkgDir = require('pkg-dir');
-
-updateNotifier({pkg}).notify();
 
 const cli = meow({
     help: `
