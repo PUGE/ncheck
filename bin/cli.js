@@ -3,9 +3,8 @@
 
 const meow = require('meow');
 const isCI = require('is-ci');
-const createCallsiteRecord = require('callsite-record');
 const pkg = require('../package.json');
-const npmCheck = require('./index');
+const nCheck = require('./index');
 const staticOutput = require('./out/static-output');
 const interactiveUpdate = require('./out/interactive-update');
 const debug = require('./state/debug');
@@ -86,7 +85,7 @@ if (options.debug) {
     debug('cli.input', cli.input);
 }
 
-npmCheck(options)
+nCheck(options)
     .then(currentState => {
         currentState.inspectIfDebugMode();
 
@@ -99,7 +98,7 @@ npmCheck(options)
     .catch(err => {
         console.log(err.message);
         if (options.debug) {
-            console.log(createCallsiteRecord(err).renderSync());
+            console.log(err);
         } else {
             console.log('For more detail, add `--debug` to the command');
         }
