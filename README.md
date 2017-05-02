@@ -37,7 +37,7 @@ Path
   Where to check. Defaults to current directory. Use -g for checking global modules.
 
 Options
-  -u, --update          Interactive update.
+  -u, --update          只检查是否有包裹需要更新.
   -g, --global          Look at global modules.
   -s, --skip-unused     Skip check for unused packages.
   -p, --production      Skip devDependencies.
