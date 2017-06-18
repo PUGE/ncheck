@@ -9,9 +9,9 @@ function readPackageJson(filename) {
         pkg = require(filename);
     } catch (e) {
         if (e.code === 'MODULE_NOT_FOUND') {
-            error = new Error(`A package.json was not found at ${filename}`);
+            error = new Error(`${filename}中找到了package.json文件`);
         } else {
-            error = new Error(`A package.json was found at ${filename}, but it is not valid.`);
+            error = new Error(`目录 ${filename}中找到了package.json文件，但它的格式有错误!`);
         }
     }
     return merge(pkg, {devDependencies: {}, dependencies: {}, error: error});
