@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const _ = require('lodash');
 const table = require('text-table');
 const emoji = require('./emoji');
+const stripAnsi = require('strip-ansi');
 
 function uppercaseFirstLetter(str) {
     return str[0].toUpperCase() + str.substr(1);
@@ -78,7 +79,7 @@ function outputConsole(currentState) {
 
     if (rows.length) {
         const renderedTable = table(rows, {
-            stringLength: s => chalk.stripColor(s).length
+            stringLength: s => stripAnsi(s).length
         });
 
         console.log('');

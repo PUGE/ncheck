@@ -1,6 +1,6 @@
 {
   "name": "ncheck",
-  "version": "5.6.3",
+  "version": "5.6.4",
   "description": "Check for outdated, incorrect, and unused dependencies.",
   "main": "bin",
   "engines": {
@@ -54,6 +54,7 @@
     "pkg-dir": "^2.0.0",
     "semver": "^5.0.1",
     "semver-diff": "^2.0.0",
+    "strip-ansi": "^4.0.0",
     "text-table": "^0.2.0",
     "throat": "^4.0.0",
     "update-notifier": "^2.1.0"

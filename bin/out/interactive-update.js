@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const table = require('text-table');
 const installPackages = require('./install-packages');
 const emoji = require('./emoji');
+const stripAnsi = require('strip-ansi');
 
 const UI_GROUPS = [
     {
@@ -80,7 +81,7 @@ function createChoices(packages, options) {
     const choicesAsATable = table(_.map(choices, 'name'), {
         align: ['l', 'l', 'l'],
         stringLength: function (str) {
-            return chalk.stripColor(str).length;
+            return stripAnsi(str).length;
         }
     }).split('\n');
 
