@@ -85,6 +85,7 @@ if (options.debug) {
     debug('cli.input', cli.input);
 }
 
+// 
 nCheck(options)
     .then(currentState => {
         currentState.inspectIfDebugMode();

@@ -8,7 +8,7 @@ const createPackageSummary = require('./create-package-summary');
 module.exports = function (currentState) {
     return co(function *() {
         yield getUnusedPackages(currentState);
-
+        // 显示正在检查动画
         const spinner = ora(`正在检查是否有模块需要更新.`);
         spinner.enabled = spinner.enabled && currentState.get('spinner');
         spinner.start();
