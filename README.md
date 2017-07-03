@@ -3,7 +3,7 @@ ncheck
 
 > 检查项目中是否存在 过时 错误 多余 的模块.
 
-<img width="796" alt="npm-check -u" src="https://cloud.githubusercontent.com/assets/51505/9569917/96947fea-4f48-11e5-9783-2d78077256f2.png">
+<img width="656" alt="npm-check -u" src="http://myweb-10017157.cossh.myqcloud.com/2017/07/03/QQ20170703-102036.png">
 
 ### 特点
 
@@ -22,10 +22,10 @@ $ npm install -g ncheck
 
 ### 使用
 ```bash
-$ npm-check
+$ ncheck
 ```
 
-<img width="882" alt="npm-check" src="https://cloud.githubusercontent.com/assets/51505/9569919/99c2412a-4f48-11e5-8c65-e9b6530ee991.png">
+<img width="602" alt="npm-check" src="http://myweb-10017157.cossh.myqcloud.com/2017/07/03/121212.png">
 
 
 ### 参数
