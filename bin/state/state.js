@@ -14,7 +14,6 @@ const defaultOptions = {
     forceColor: false,
     saveExact: false,
     debug: false,
-    emoji: true,
     specials: '',
     spinner: false,
     installer: 'npm',

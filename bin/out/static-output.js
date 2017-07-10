@@ -3,7 +3,6 @@
 const chalk = require('chalk');
 const _ = require('lodash');
 const table = require('text-table');
-const emoji = require('./emoji');
 const stripAnsi = require('strip-ansi');
 
 function uppercaseFirstLetter(str) {
@@ -30,15 +29,15 @@ function render(pkg, currentState) {
             indent + versionMessage
         ] : '',
         pkg.bump && !pkg.easyUpgrade ? [
-            chalk.white.bold.bgGreen((pkg.bump === 'nonSemver' ? emoji(' :sunglasses: ') + ' new ver! '.toUpperCase() : ' ' + pkg.bump + '升级 ')) + ' 项目地址:' + chalk.blue.underline(pkg.homepage || ''),
+            chalk.white.bold.bgGreen((pkg.bump === 'nonSemver' ? ' new ver! '.toUpperCase() : ' ' + pkg.bump + '升级 ')) + ' 项目地址:' + chalk.blue.underline(pkg.homepage || ''),
             indent + upgradeMessage,
             indent + versionMessage,
         ] : '',
         pkg.unused ? [
             chalk.black.bold.bgWhite(' 没有引用? ') + ` 卸载命令: ${chalk.green(`npm uninstall --save${pkg.devDependency ? '-dev' : ''} ${packageName}`)}`
         ] : '',
-        pkg.mismatch && !pkg.bump ? chalk.bgRed.yellow.bold(emoji(' :interrobang: ') + ' MISMATCH ') + ' Installed version does not match package.json. ' + pkg.installed + ' ≠ ' + pkg.packageJson : '',
-        pkg.regError ? chalk.bgRed.white.bold(emoji(' :no_entry: ') + ' NPM ERR! ') + ' ' + chalk.red(pkg.regError) : ''
+        pkg.mismatch && !pkg.bump ? chalk.bgRed.yellow.bold(' MISMATCH ') + ' Installed version does not match package.json. ' + pkg.installed + ' ≠ ' + pkg.packageJson : '',
+        pkg.regError ? chalk.bgRed.white.bold(' 模块错误! ') + ' ' + chalk.red(pkg.regError) : ''
     ])
     .flatten()
     .compact()
@@ -91,7 +90,7 @@ function outputConsole(currentState) {
         console.log(`使用${chalk.green(`ncheck -${currentState.get('global') ? 'g' : ''}u`)} 只检查更新.`);
         process.exitCode = 1;
     } else {
-        console.log(`${emoji(':heart:  ')}Your modules look ${chalk.bold('amazing')}. Keep up the great work.${emoji(' :heart:')}`);
+        console.log(`Your modules look ${chalk.bold('amazing')}. Keep up the great work.`);
         process.exitCode = 0;
     }
 }

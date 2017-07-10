@@ -4,7 +4,6 @@ const path = require('path');
 const globalModulesPath = require('global-modules');
 const readPackageJson = require('../in/read-package-json');
 const globalPackages = require('../in/get-installed-packages');
-const emoji = require('../out/emoji');
 
 function init(currentState, userOptions) {
     return new Promise((resolve, reject) => {
@@ -21,9 +20,6 @@ function init(currentState, userOptions) {
             currentState.set('cwd', cwd);
             currentState.set('nodeModulesPath', path.join(cwd, 'node_modules'));
         }
-
-        emoji.enabled(currentState.get('emoji'));
-
         if (currentState.get('cwdPackageJson').error) {
             return reject(currentState.get('cwdPackageJson').error);
         }

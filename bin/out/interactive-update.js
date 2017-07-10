@@ -5,7 +5,6 @@ const inquirer = require('inquirer');
 const chalk = require('chalk');
 const table = require('text-table');
 const installPackages = require('./install-packages');
-const emoji = require('./emoji');
 const stripAnsi = require('strip-ansi');
 
 const UI_GROUPS = [
@@ -110,7 +109,7 @@ function interactive(currentState) {
     const choices = _.flatten(choicesGrouped);
 
     if (!choices.length) {
-        console.log(`${emoji(':heart:  ')}这个项目所引用的模块都是最新的！`);
+        console.log(`owo这个项目所引用的模块都是最新的！`);
         return;
     }
 
