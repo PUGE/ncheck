@@ -27,7 +27,6 @@ const cli = meow({
       -E, --save-exact      在package.json中使用精确版本(x.y.z)而不是(^x.y.z).
       --specials            包括检查未使用的依赖关系的depcheck特殊列表。
       --no-color            禁用彩色文字.
-      --no-emoji            禁用emoji表情.
       --debug               调试输出模式.
 
     示例
@@ -46,7 +45,6 @@ const cli = meow({
     },
     default: {
       dir: pkgDir.sync() || process.cwd(),
-      emoji: !isCI,
       spinner: !isCI
     },
     boolean: [
@@ -56,7 +54,6 @@ const cli = meow({
       'production',
       'save-exact',
       'color',
-      'emoji',
       'spinner'
     ],
     string: [
@@ -73,7 +70,6 @@ const options = {
   ignoreDev: cli.flags.production,
   saveExact: cli.flags.saveExact,
   specials: cli.flags.specials,
-  emoji: cli.flags.emoji,
   installer: process.env.NPM_CHECK_INSTALLER || 'npm',
   debug: cli.flags.debug,
   spinner: cli.flags.spinner,
@@ -88,8 +84,7 @@ if (options.debug) {
 // 
 nCheck(options)
   .then(currentState => {
-    currentState.inspectIfDebugMode();
-    // 判断是否为之检查更新模式
+    // 判断是否为只检查更新模式
     if (options.update) {
       return interactiveUpdate(currentState);
     }

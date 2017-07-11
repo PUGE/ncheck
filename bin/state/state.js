@@ -1,75 +1,55 @@
 'use strict';
-const mergeOptions = require('merge-options');
 const init = require('./init');
 const debug = require('./debug');
 
+// 默认设置
 const defaultOptions = {
-    update: false,
-    global: false,
-    cwd: process.cwd(),
-    nodeModulesPath: false,
-    skipUnused: false,
-
-    ignoreDev: false,
-    forceColor: false,
-    saveExact: false,
-    debug: false,
-    specials: '',
-    spinner: false,
-    installer: 'npm',
-    ignore: [],
-
-    globalPackages: {},
-    cwdPackageJson: {devDependencies: {}, dependencies: {}},
-
-    packages: false,
-    unusedDependencies: false,
-    missingFromPackageJson: {}
+  update: false,
+  global: false,
+  cwd: process.cwd(),
+  nodeModulesPath: false,
+  skipUnused: false,
+  ignoreDev: false,
+  forceColor: false,
+  saveExact: false,
+  debug: false,
+  specials: '',
+  spinner: false,
+  installer: 'npm',
+  ignore: [],
+  globalPackages: {},
+  cwdPackageJson: {devDependencies: {}, dependencies: {}},
+  packages: false,
+  unusedDependencies: false,
+  missingFromPackageJson: {}
 };
 
 function state(userOptions) {
-    const currentStateObject = mergeOptions(defaultOptions, {});
-
-    function get(key) {
-        if (!currentStateObject.hasOwnProperty(key)) {
-            throw new Error(`Can't get unknown option "${key}".`);
-        }
-        return currentStateObject[key];
+  const currentStateObject = defaultOptions;
+  // 从配置中取出指定配置项
+  function get(key) {
+    // 检查指定项是否存在
+    if (!currentStateObject.hasOwnProperty(key)) {
+      throw new Error(`无法获取配置项 [${key}] ,因为配置项不存在！`);
     }
-
-    function set(key, value) {
-        if (get('debug')) {
-            debug('set key', key, 'to value', value);
-        }
-
-        if (currentStateObject.hasOwnProperty(key)) {
-            currentStateObject[key] = value;
-        } else {
-            throw new Error(`unknown option "${key}" setting to "${JSON.stringify(value, false, 4)}".`);
-        }
+    return currentStateObject[key];
+  }
+  // 设置指定配置项
+  function set(key, value) {
+    // 检查指定项是否存在
+    if (currentStateObject.hasOwnProperty(key)) {
+      // 用新值代替指定键值
+      currentStateObject[key] = value;
+    } else {
+      throw new Error(`无法设置配置项 [${key}] ,因为配置项不存在！`);
     }
+  }
 
-    function inspectIfDebugMode() {
-        if (get('debug')) {
-            inspect();
-        }
-    }
+  const currentState = {
+    get: get,
+    set: set
+  };
 
-    function inspect() {
-        debug('current state', all());
-    }
-
-    function all() {
-        return currentStateObject;
-    }
-
-    const currentState = {
-        get: get,
-        set: set,
-        all,
-        inspectIfDebugMode
-    };
-
-    return init(currentState, userOptions);
+  return init(currentState, userOptions);
 }
 module.exports = state;
