@@ -9,7 +9,7 @@ function init(currentState, userOptions) {
     return new Promise((resolve, reject) => {
         _.each(userOptions, (value, key) => currentState.set(key, value));
 
-        if (currentState.get('global')) {
+        if (currentState.get('global')) { // 判断是否为检查全局模式
             currentState.set('cwd', globalModulesPath);
             currentState.set('nodeModulesPath', globalModulesPath);
             currentState.set('globalPackages', globalPackages(globalModulesPath));
