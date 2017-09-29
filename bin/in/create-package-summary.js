@@ -3,62 +3,63 @@
 const readPackageJson = require('./read-package-json');
 const getLatestFromRegistry = require('./get-latest-from-registry');
 const _ = require('lodash');
+// 识别更新重要程度
 const semverDiff = require('semver-diff');
+// 检查目录是否存在
 const pathExists = require('path-exists');
 const path = require('path');
 const semver = require('semver');
 const minimatch = require('minimatch');
 
 function createPackageSummary(moduleName, currentState) {
-    const cwdPackageJson = currentState.get('cwdPackageJson');
+  const cwdPackageJson = currentState.get('cwdPackageJson')
+  // 模块目录
+  const modulePath = path.join(currentState.get('nodeModulesPath'), moduleName)
+  // 检查模块是否安装
+  const packageIsInstalled = pathExists.sync(modulePath)
+  // 读取模块package
+  const modulePackageJson = readPackageJson(path.join(modulePath, 'package.json'))
+  // 判断是否为私有模块
+  const isPrivate = Boolean(modulePackageJson.private)
+  if (isPrivate) return false
 
-    const modulePath = path.join(currentState.get('nodeModulesPath'), moduleName);
-    const packageIsInstalled = pathExists.sync(modulePath);
-    const modulePackageJson = readPackageJson(path.join(modulePath, 'package.json'));
+  // 获取模块版本号
+  const packageJsonVersion = cwdPackageJson.dependencies[moduleName] ||
+          cwdPackageJson.devDependencies[moduleName] ||
+          currentState.get('globalPackages')[moduleName]
+  // 判断无用版本号
+  if (packageJsonVersion && !semver.validRange(packageJsonVersion)) {
+    return false
+  }
 
-    // Ignore private packages
-    const isPrivate = Boolean(modulePackageJson.private);
-    if (isPrivate) {
-        return false;
+    // 判断忽略模块
+  const ignore = currentState.get('ignore')
+  if (ignore) {
+    const ignoreMatch = Array.isArray(ignore) ? ignore.some(ignoredModule => minimatch(moduleName, ignoredModule)) : minimatch(moduleName, ignore);
+    if (ignoreMatch) {
+      return false;
     }
-
-    // Ignore packages that are using github or file urls
-    const packageJsonVersion = cwdPackageJson.dependencies[moduleName] ||
-        cwdPackageJson.devDependencies[moduleName] ||
-        currentState.get('globalPackages')[moduleName];
-
-    if (packageJsonVersion && !semver.validRange(packageJsonVersion)) {
-        return false;
-    }
-
-    // Ignore specified '--ignore' package globs
-    const ignore = currentState.get('ignore');
-    if (ignore) {
-        const ignoreMatch = Array.isArray(ignore) ? ignore.some(ignoredModule => minimatch(moduleName, ignoredModule)) : minimatch(moduleName, ignore);
-        if (ignoreMatch) {
-            return false;
-        }
-    }
-
-    const unusedDependencies = currentState.get('unusedDependencies');
-    const missingFromPackageJson = currentState.get('missingFromPackageJson');
+  }
+  // 未使用模块列表
+  const unusedDependencies = currentState.get('unusedDependencies')
+  // 缺失模块列表
+  const missingFromPackageJson = currentState.get('missingFromPackageJson')
 
     function foundIn(files) {
-        if (!files) {
-            return;
-        }
+      if (!files) return
 
-        return 'Found in: ' + files.map(filepath => filepath.replace(currentState.get('cwd'), ''))
-            .join(', ');
+      return 'Found in: ' + files.map(filepath => filepath.replace(currentState.get('cwd'), ''))
+          .join(', ');
     }
 
     return getLatestFromRegistry(moduleName)
         .then(fromRegistry => {
-            const installedVersion = modulePackageJson.version;
+          // 已安装模版版本号
+          const installedVersion = modulePackageJson.version;
 
-            const latest = installedVersion && fromRegistry.latest && fromRegistry.next && semver.gt(installedVersion, fromRegistry.latest) ? fromRegistry.next : fromRegistry.latest;
-            const versions = fromRegistry.versions || [];
-
+          const latest = installedVersion && fromRegistry.latest && fromRegistry.next && semver.gt(installedVersion, fromRegistry.latest) ? fromRegistry.next : fromRegistry.latest
+          const versions = fromRegistry.versions || []
+          console.log(latest, versions)
             const versionWanted = semver.maxSatisfying(versions, packageJsonVersion);
 
             const versionToUse = installedVersion || versionWanted;
