@@ -128,7 +128,7 @@ function interactive(currentState) {
 
     return new Promise(resolve => inquirer.prompt(questions, resolve)).then(answers => {
         const packagesToUpdate = answers.packages;
-
+        
         if (!packagesToUpdate || !packagesToUpdate.length) {
             console.log('没有选中需要更新的项目.');
             return false;

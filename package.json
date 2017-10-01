@@ -1,41 +1,45 @@
 {
-  "name": "ncheck",
-  "version": "5.6.8",
-  "description": "检查模块是否为最新.",
-  "main": "bin",
-  "engines": {
-    "node": ">=0.11.0"
+  "_from": "ncheck",
+  "_id": "ncheck@5.6.9",
+  "_inBundle": false,
+  "_integrity": "sha512-M+RENa+adpJuz5LKt2OkjuF8+tEpeld/kB66AoHKbJTqaBF0FcGCs/F0LNRIECGcQ1YqFpUJJAkOmJ4fZ1+q2A==",
+  "_location": "/ncheck",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ncheck",
+    "name": "ncheck",
+    "escapedName": "ncheck",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
-  "types": "./index.d.ts",
-  "typings": "./index.d.ts",
-  "scripts": {
-    "watch": "babel bin --out-dir lib-es5 --watch",
-    "repos": "grunt repos # required for grunt readme to run",
-    "readme": "grunt readme"
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ncheck/-/ncheck-5.6.9.tgz",
+  "_shasum": "f2f977fbc000df1609b367295c582564880ed73c",
+  "_spec": "ncheck",
+  "_where": "C:\\Users\\PUGE\\Documents\\GitHub\\ncheck",
+  "author": {
+    "name": "puge",
+    "email": "my@owo.help"
   },
   "bin": {
     "ncheck": "bin/cli.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PUGE/ncheck.git"
+  "bugs": {
+    "url": "https://github.com/PUGE/ncheck/issues"
   },
-  "keywords": [
-    "check"
-  ],
-  "author": "puge <my@owo.help>",
-  "license": "MIT",
-  "homepage": "https://github.com/PUGE/ncheck",
-  "files": [
-    "bin"
-  ],
+  "bundleDependencies": false,
   "dependencies": {
     "babel-runtime": "^6.6.1",
-    "callsite-record": "^4.0.0",
     "chalk": "^2.0.1",
     "co": "^4.6.0",
     "depcheck": "^0.6.3",
-    "execa": "^0.7.0",
+    "execa": "^0.8.0",
     "giturl": "^1.0.0",
     "global-modules": "^1.0.0",
     "globby": "^6.1.0",
@@ -53,7 +57,33 @@
     "semver-diff": "^2.0.0",
     "strip-ansi": "^4.0.0",
     "text-table": "^0.2.0",
-    "throat": "^4.0.0",
-    "update-notifier": "^2.1.0"
-  }
+    "throat": "^4.0.0"
+  },
+  "deprecated": false,
+  "description": "检查模块是否为最新.",
+  "engines": {
+    "node": ">=0.11.0"
+  },
+  "files": [
+    "bin"
+  ],
+  "homepage": "https://github.com/PUGE/ncheck",
+  "keywords": [
+    "check"
+  ],
+  "license": "MIT",
+  "main": "bin",
+  "name": "ncheck",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PUGE/ncheck.git"
+  },
+  "scripts": {
+    "readme": "grunt readme",
+    "repos": "grunt repos # required for grunt readme to run",
+    "watch": "babel bin --out-dir lib-es5 --watch"
+  },
+  "types": "./index.d.ts",
+  "typings": "./index.d.ts",
+  "version": "5.6.9"
 }
