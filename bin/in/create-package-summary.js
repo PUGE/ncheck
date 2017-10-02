@@ -73,7 +73,6 @@ function createPackageSummary(moduleName, currentState) {
           return {
             // info
             moduleName: moduleName,
-            homepage: fromRegistry.homepage,
             regError: fromRegistry.error,
             pkgError: modulePackageJson.error,
 

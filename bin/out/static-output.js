@@ -24,13 +24,12 @@ function render(pkg, currentState) {
         pkg.notInPackageJson ? chalk.bgRed.white.bold(' 配置错误! ') + ' 没有在package.json里配置. ' + pkg.notInPackageJson : '',
         pkg.pkgError && !pkg.notInstalled ? chalk.bgGreen.white.bold(' 配置错误! ') + ' ' + chalk.red(pkg.pkgError.message) : '',
         pkg.bump && pkg.easyUpgrade ? [
-            chalk.bgGreen.white.bold(' 可以升级! ') + ' 此模块有更新的版本. ' + chalk.blue.underline(pkg.homepage || ''),
-            indent + upgradeMessage,
+            chalk.bgGreen.white.bold(' 可以升级! ') + ' 此模块有更新的版本. ',
+            upgradeMessage,
             indent + versionMessage
         ] : '',
         pkg.bump && !pkg.easyUpgrade ? [
-            chalk.white.bold.bgGreen((pkg.bump === 'nonSemver' ? ' new ver! '.toUpperCase() : ' ' + pkg.bump + '升级 ')) + ' 项目地址:' + chalk.blue.underline(pkg.homepage || ''),
-            indent + upgradeMessage,
+            chalk.white.bold.bgGreen((pkg.bump === 'nonSemver' ? ' new ver! '.toUpperCase() : ' ' + pkg.bump + '升级 ')) + upgradeMessage,
             indent + versionMessage,
         ] : '',
         pkg.unused ? [

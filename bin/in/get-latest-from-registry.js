@@ -20,8 +20,7 @@ function getNpmInfo(packageName) {
         const latest = rawData['dist-tags'].latest;
         return {
             latest: latest,
-            versions: sortedVersions,
-            homepage: `https://www.npmjs.com/package/hexo-renderer-marked${rawData.name}`
+            versions: sortedVersions
         };
     }).catch(err => {
         const errorMessage = `Registry error ${err.message}`;

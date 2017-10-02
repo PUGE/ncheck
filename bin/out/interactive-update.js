@@ -41,13 +41,11 @@ function label(pkg) {
     const name = chalk.yellow(pkg.moduleName);
     const type = pkg.devDependency ? chalk.green(' devDep') : '';
     const missing = pkg.notInstalled ? chalk.red(' missing') : '';
-    const homepage = pkg.homepage ? chalk.blue.underline(pkg.homepage) : '';
     return [
         name + type + missing,
         installed,
         installed && '❯',
-        chalk.bold(pkg.latest || ''),
-        pkg.latest ? homepage : pkg.regError || pkg.pkgError
+        chalk.bold(pkg.latest || '')
     ];
 }
 
