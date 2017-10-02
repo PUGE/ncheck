@@ -194,7 +194,6 @@ Each item in the array will look like the following:
   installed: '4.6.1',                   // version installed
   isInstalled: true,                    // Is it installed?
   notInstalled: false,                  // Is it installed?
-  packageWanted: '4.7.0',               // Requested version from the package.json.
   packageJson: '^4.6.1',                // Version or range requested in the parent package.json.
   devDependency: false,                 // Is this a devDependency?
   usedInScripts: undefined,             // Array of `scripts` in package.json that use this module.

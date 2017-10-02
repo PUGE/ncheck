@@ -59,9 +59,6 @@ function createPackageSummary(moduleName, currentState) {
           const installedVersion = modulePackageJson.version
           // 最新的版本号
           const latest = fromRegistry.latest
-          const versions = fromRegistry.versions || []
-          
-          const versionWanted = semver.maxSatisfying(versions, packageJsonVersion)
           // 判断模块版本是否小于1.0.0-pre(是不是预览版)
           const usingNonSemver = semver.valid(latest) && semver.lt(latest, '1.0.0-pre')
           // 识别更新重要度
@@ -81,7 +78,6 @@ function createPackageSummary(moduleName, currentState) {
             installed: installedVersion,
             isInstalled: packageIsInstalled,
             notInstalled: !packageIsInstalled,
-            packageWanted: versionWanted,
             packageJson: packageJsonVersion,
 
             // Missing from package json

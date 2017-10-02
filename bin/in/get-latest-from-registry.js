@@ -7,7 +7,7 @@ const cpuCount = require('os').cpus().length;
 const throat = require('throat')(cpuCount);
 
 function getNpmInfo(packageName) {
-  return throat(() => packageJson(packageName, { allVersions: true }))
+  return throat(() => packageJson(packageName))
     .then(rawData => {
         const CRAZY_HIGH_SEMVER = '8000.0.0';
         
@@ -17,7 +17,9 @@ function getNpmInfo(packageName) {
             .sort(semver.compare)
             .valueOf();
         // 最大版本号
-        const latest = rawData['dist-tags'].latest;
+        // console.log(rawData)
+        const latest = rawData.version
+        console.log(latest)
         return {
             latest: latest,
             versions: sortedVersions
