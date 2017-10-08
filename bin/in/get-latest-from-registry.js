@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const semver = require('semver');
-const packageJson = require('package-json');
+const packageJson = require('../modules/package-json');
 const cpuCount = require('os').cpus().length;
 const throat = require('throat')(cpuCount);
 
@@ -17,9 +17,7 @@ function getNpmInfo(packageName) {
             .sort(semver.compare)
             .valueOf();
         // 最大版本号
-        // console.log(rawData)
         const latest = rawData.version
-        console.log(latest)
         return {
             latest: latest,
             versions: sortedVersions
