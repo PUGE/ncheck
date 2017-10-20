@@ -38,13 +38,12 @@ Path
 
 Options
   -u, --update          只检查是否有包裹需要更新.
-  -g, --global          Look at global modules.
-  -s, --skip-unused     Skip check for unused packages.
-  -p, --production      Skip devDependencies.
+  -g, --global          检查全局模块.
+  -s, --skip-unused     跳过检查未使用的包.
+  -p, --production      跳过检查devDependencies.
   -i, --ignore          Ignore dependencies based on succeeding glob.
   -E, --save-exact      Save exact version (x.y.z) instead of caret (^x.y.z) in package.json.
   --no-color            Force or disable color output.
-  --no-emoji            Remove emoji support. No emoji in default in CI environments.
   --debug               Debug output. Throw in a gist when creating issues on github.
 
 实例
