@@ -1,28 +1,4 @@
 {
-  "_from": "ncheck",
-  "_id": "ncheck@5.6.9",
-  "_inBundle": false,
-  "_integrity": "sha512-M+RENa+adpJuz5LKt2OkjuF8+tEpeld/kB66AoHKbJTqaBF0FcGCs/F0LNRIECGcQ1YqFpUJJAkOmJ4fZ1+q2A==",
-  "_location": "/ncheck",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "ncheck",
-    "name": "ncheck",
-    "escapedName": "ncheck",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/ncheck/-/ncheck-5.6.9.tgz",
-  "_shasum": "f2f977fbc000df1609b367295c582564880ed73c",
-  "_spec": "ncheck",
-  "_where": "C:\\Users\\PUGE\\Documents\\GitHub\\ncheck",
   "author": {
     "name": "puge",
     "email": "my@owo.help"
@@ -33,7 +9,6 @@
   "bugs": {
     "url": "https://github.com/PUGE/ncheck/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "babel-runtime": "^6.6.1",
     "chalk": "^2.0.1",
@@ -86,5 +61,5 @@
   },
   "types": "./index.d.ts",
   "typings": "./index.d.ts",
-  "version": "5.6.9"
+  "version": "5.7.10"
 }

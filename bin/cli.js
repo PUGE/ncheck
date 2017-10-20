@@ -25,7 +25,6 @@ const cli = meow({
       -p, --production      跳过检查开发版本.
       -i, --ignore          Ignore dependencies based on succeeding glob.
       -E, --save-exact      在package.json中使用精确版本(x.y.z)而不是(^x.y.z).
-      --specials            包括检查未使用的依赖关系的depcheck特殊列表。
       --no-color            禁用彩色文字.
       --debug               调试输出模式.
 
@@ -57,8 +56,7 @@ const cli = meow({
       'spinner'
     ],
     string: [
-      'ignore',
-      'specials'
+      'ignore'
     ]
   });
 
@@ -69,7 +67,6 @@ const options = {
   skipUnused: cli.flags.skipUnused,
   ignoreDev: cli.flags.production,
   saveExact: cli.flags.saveExact,
-  specials: cli.flags.specials,
   installer: process.env.NPM_CHECK_INSTALLER || 'npm',
   debug: cli.flags.debug,
   spinner: cli.flags.spinner,

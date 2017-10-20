@@ -89,7 +89,7 @@ function outputConsole(currentState) {
         console.log(`使用${chalk.green(`ncheck -${currentState.get('global') ? 'g' : ''}u`)} 只检查更新.`);
         process.exitCode = 1;
     } else {
-        console.log(`Your modules look ${chalk.bold('amazing')}. Keep up the great work.`);
+        console.log(`这个项目所使用的模块都是最新的.`);
         process.exitCode = 0;
     }
 }

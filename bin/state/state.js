@@ -13,7 +13,6 @@ const defaultOptions = {
   forceColor: false,
   saveExact: false,
   debug: false,
-  specials: '',
   spinner: false,
   installer: 'npm',
   ignore: [],
