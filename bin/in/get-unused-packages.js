@@ -55,7 +55,6 @@ function checkUnused(currentState) {
     depcheck(currentState.get('cwd'), depCheckOptions, resolve);
   }).then(depCheckResults => {
       spinner.stop();
-      console.log(depCheckResults)
       const unusedDependencies = [].concat(depCheckResults.dependencies, depCheckResults.devDependencies);
       currentState.set('unusedDependencies', unusedDependencies);
 
