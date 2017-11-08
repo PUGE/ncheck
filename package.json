@@ -51,7 +51,7 @@
   "name": "ncheck",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PUGE/ncheck.git"
+    "url": "https://github.com/PUGE/ncheck.git"
   },
   "scripts": {
     "readme": "grunt readme",
@@ -60,5 +60,5 @@
   },
   "types": "./index.d.ts",
   "typings": "./index.d.ts",
-  "version": "5.7.11"
+  "version": "5.7.13"
 }

@@ -12,8 +12,8 @@ function init(currentState, userOptions) {
         if (currentState.get('global')) { // 判断是否为检查全局模式
             let NODE_PATH = ''
             if (process.env.NODE_PATH) {
-              if (process.env.NODE_PATH.indexOf(':') !== -1) {
-                modulesPath = process.env.NODE_PATH.split(':')[0];
+              if (process.env.NODE_PATH.indexOf(path.delimiter) !== -1) {
+                modulesPath = process.env.NODE_PATH.split(path.delimiter)[0];
                 console.log(chalk.yellow('警告: 存在多个NODE_PATH目录,程序默认只检查第一个!'));
               } else {
                 modulesPath = process.env.NODE_PATH;
