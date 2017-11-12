@@ -13,7 +13,7 @@ const UI_GROUPS = [
         filter: {mismatch: true, bump: null}
     },
     {
-        title: `${chalk.bold.underline.green('没有找到.')} ${chalk.green('你可能想要获取这些.')}`,
+        title: `${chalk.bold.underline.green('模块丢失')} ${chalk.green('你可能没有安装这些模块')}`,
         filter: {notInstalled: true, bump: null}
     },
     {

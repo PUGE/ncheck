@@ -18,8 +18,7 @@ function init(currentState, userOptions) {
               } else {
                 modulesPath = process.env.NODE_PATH;
               }
-            }
-            if (!fs.existsSync(NODE_PATH)) {
+            } else {
               throw new Error('NODE_PATH目录不正确,请检查环境变量!');
             }
             currentState.set('cwd', globalModulesPath);
