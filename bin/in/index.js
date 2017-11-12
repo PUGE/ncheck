@@ -50,16 +50,7 @@ function createPackageSummary(moduleName, currentState) {
   }
   // 未使用模块列表
   const unusedDependencies = currentState.get('unusedDependencies')
-  // 缺失模块列表
-  const missingFromPackageJson = currentState.get('missingFromPackageJson')
-
-  function foundIn(files) {
-    if (!files) return
-
-    return 'Found in: ' + files.map(filepath => filepath.replace(currentState.get('cwd'), ''))
-        .join(', ')
-  }
-  
+  // console.log(unusedDependencies)
   return getLatestFromRegistry(moduleName)
     .then(fromRegistry => {
       // console.log(fromRegistry)
@@ -73,10 +64,9 @@ function createPackageSummary(moduleName, currentState) {
       const bump = semver.valid(latest) &&
                   semver.valid(installedVersion) &&
                   (usingNonSemver && semverDiff(installedVersion, latest) ? 'nonSemver' : semverDiff(installedVersion, latest))
-      // 未使用模块列表
-      const unused = _.includes(unusedDependencies, moduleName)
+      // console.log(unused)
       spinner.text = `正在检查模块版本[${++sum}/${modulesNum}].`
-      return {
+      let data = {
         // info
         moduleName: moduleName,
         regError: fromRegistry.error,
@@ -88,9 +78,6 @@ function createPackageSummary(moduleName, currentState) {
         isInstalled: packageIsInstalled,
         notInstalled: !packageIsInstalled,
         packageJson: packageJsonVersion,
-
-        // Missing from package json
-        notInPackageJson: foundIn(missingFromPackageJson[moduleName]),
 
         // meta
         devDependency: _.has(cwdPackageJson.devDependencies, moduleName),
@@ -106,17 +93,19 @@ function createPackageSummary(moduleName, currentState) {
             semver.valid(installedVersion) &&
             semver.satisfies(latest, packageJsonVersion) &&
             bump !== 'major',
-        bump: bump,
-
-        unused: unused
+        bump: bump
       }
+      // 未使用模块列表
+      if (unusedDependencies) {
+        data.unused = unusedDependencies[moduleName].length === 0
+      }
+      return data
     })
 }
 
 
 module.exports = function (currentState) {
   return co(function *() {
-    yield getUnusedPackages(currentState);
     // 显示正在检查动画
     spinner = ora(`正在检查模块版本.`);
     spinner.enabled = spinner.enabled && currentState.get('spinner');
@@ -138,10 +127,14 @@ module.exports = function (currentState) {
 
     const allDependencies = dependencies(cwdPackageJson);
     
-    const allDependenciesIncludingMissing = Object.keys(merge(allDependencies, currentState.get('missingFromPackageJson')));
-    modulesNum = allDependenciesIncludingMissing.length
+    const allDependenciesList = Object.keys(allDependencies);
+    // 待优化单线程
+    // 检查未使用模块
+    getUnusedPackages(currentState, allDependenciesList);
+    // 获取模块总数
+    modulesNum = allDependenciesList.length
     spinner.text = `正在检查模块版本[0/${modulesNum}].`
-    const arrayOfPackageInfo = yield allDependenciesIncludingMissing
+    const arrayOfPackageInfo = yield allDependenciesList
       .map(moduleName => createPackageSummary(moduleName, currentState))
       .filter(Boolean);
     currentState.set('packages', arrayOfPackageInfo);

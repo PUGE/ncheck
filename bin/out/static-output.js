@@ -21,7 +21,6 @@ function render(pkg, currentState) {
     // DYLAN: clean this up
     const status = _([
         pkg.notInstalled ? chalk.bgRed.white.bold(' 模块缺失! ') + ' 没有安装.' : '',
-        pkg.notInPackageJson ? chalk.bgRed.white.bold(' 配置错误! ') + ' 没有在package.json里配置. ' + pkg.notInPackageJson : '',
         pkg.pkgError && !pkg.notInstalled ? chalk.bgGreen.white.bold(' 配置错误! ') + ' ' + chalk.red(pkg.pkgError.message) : '',
         pkg.bump && pkg.easyUpgrade ? [
             chalk.bgGreen.white.bold(' 可以升级! ') + ' 此模块有更新的版本. ',

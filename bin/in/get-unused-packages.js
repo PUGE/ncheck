@@ -1,8 +1,6 @@
 'use strict';
-
-const depcheck = require('depcheck');
+const fs = require("fs") 
 const ora = require('ora');
-const _ = require('lodash');
 
 function skipUnused(currentState) {
   return currentState.get('skipUnused') ||        // 跳过检查未使用包
@@ -12,60 +10,58 @@ function skipUnused(currentState) {
 }
 
 
-function checkUnused(currentState) {
+function checkUnused(currentState, allDependenciesList) {
+  if (skipUnused(currentState)) {
+    return
+  }
+  // 排除模块
+  const exclude = ['node_modules', 'dist']
   const spinner = ora(`正在检查未引用的模块.`);
   spinner.enabled = spinner.enabled && currentState.get('spinner');
   spinner.start();
 
-  return new Promise(resolve => {
-    // 判断是否检查未使用模块
-    if (skipUnused(currentState)) {
-      resolve(currentState);
-      return;
+  let fileList = []
+  // 遍历工程目录 寻找文件
+  function readDir(path){
+    const menu = fs.readdirSync(path)
+    if(!menu) return
+    menu.forEach((ele) => {
+      // 排除目录
+      if (exclude.indexOf(ele) < 0 && ele[0] !== '.'){
+        const info = fs.statSync(`${path}/${ele}`)
+        if(info.isDirectory()) {
+          readDir(`${path}/${ele}`)
+        } else {
+          // 判断后缀是否符合要求
+          if (ele.endsWith('.vue') || ele.endsWith('.js')) {
+            fileList.push(`${path}/${ele}`)
+          }
+        }
+      }
+    })
+  }
+  readDir(currentState.get('cwd'))
+
+  let output = {}
+  // 待优化
+  allDependenciesList.forEach((element) => {
+    output[element] = []
+  }, this)
+
+  fileList.forEach((element) => {
+    if (allDependenciesList.length > 0) {
+      const data = fs.readFileSync(element, 'utf-8')
+      for (let index in allDependenciesList) {
+        const modelName = allDependenciesList[index]
+        if (data.indexOf(`"${modelName}"`) >=0 || data.indexOf(`'${modelName}'`) >=0) {
+          output[modelName].push(element)
+        }
+      }
     }
-
-    const depCheckOptions = {
-      ignoreDirs: [ // 忽略检查文件夹
-        'sandbox',
-        'dist',
-        'generated',
-        '.generated',
-        'build',
-        'fixtures',
-        'jspm_packages'
-      ],
-      parsers: { // the target parsers
-        '*.js': depcheck.parser.es6,
-        '*.jsx': depcheck.parser.jsx
-      },
-      ignoreMatches: [ // 忽略检查模块
-        'gulp-*',
-        'grunt-*',
-        'karma-*',
-        'angular-*',
-        'babel-*',
-        'metalsmith-*',
-        'eslint-plugin-*',
-        '@types/*',
-        'grunt',
-        'mocha',
-        'ava'
-      ]
-    };
-    depcheck(currentState.get('cwd'), depCheckOptions, resolve);
-  }).then(depCheckResults => {
-      spinner.stop();
-      const unusedDependencies = [].concat(depCheckResults.dependencies, depCheckResults.devDependencies);
-      currentState.set('unusedDependencies', unusedDependencies);
-
-      const cwdPackageJson = currentState.get('cwdPackageJson');
-
-      // currently missing will return devDependencies that aren't really missing
-      const missingFromPackageJson = _.omit(depCheckResults.missing || {},
-                  Object.keys(cwdPackageJson.dependencies), Object.keys(cwdPackageJson.devDependencies));
-      currentState.set('missingFromPackageJson', missingFromPackageJson);
-      return currentState;
-  });
+  }, this)
+  spinner.stop();
+  currentState.set('unusedDependencies', output);
+  return
 }
 
 module.exports = checkUnused;

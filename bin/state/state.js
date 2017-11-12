@@ -19,8 +19,7 @@ const defaultOptions = {
   globalPackages: {},
   cwdPackageJson: {devDependencies: {}, dependencies: {}},
   packages: false,
-  unusedDependencies: false,
-  missingFromPackageJson: {}
+  unusedDependencies: false
 };
 
 function state(userOptions) {
