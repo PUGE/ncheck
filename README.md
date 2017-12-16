@@ -1,9 +1,8 @@
 ncheck
 =========
 
-> 检查项目中是否存在 过时 错误 多余 的模块.
+> 检查项目中是否存在 过时 错误 多余(仅支持vue) 的模块.
 
-<img width="656" alt="npm-check -u" src="http://myweb-10017157.cossh.myqcloud.com/2017/07/03/QQ20170703-102036.png">
 
 ### 特点
 
@@ -25,8 +24,6 @@ $ npm install -g ncheck
 $ ncheck
 ```
 
-<img width="602" alt="npm-check" src="http://myweb-10017157.cossh.myqcloud.com/2017/07/03/121212.png">
-
 
 ### 参数
 ```
@@ -37,13 +34,10 @@ Path
   Where to check. Defaults to current directory. Use -g for checking global modules.
 
 Options
-  -u, --update          只检查是否有包裹需要更新.
   -g, --global          检查全局模块.
-  -s, --skip-unused     跳过检查未使用的包.
-  -p, --production      跳过检查devDependencies.
+  -u, --unused          检查未使用的包.
   -i, --ignore          Ignore dependencies based on succeeding glob.
   -E, --save-exact      Save exact version (x.y.z) instead of caret (^x.y.z) in package.json.
-  --no-color            Force or disable color output.
   --debug               Debug output. Throw in a gist when creating issues on github.
 
 实例
@@ -51,206 +45,3 @@ Options
   $ npm-check ../foo    # Check another path.
   $ npm-check -gu       # Update globally installed modules by picking which ones to upgrade.
 ```
-
-![npm-check-u](https://cloud.githubusercontent.com/assets/51505/9569912/8c600cd8-4f48-11e5-8757-9387a7a21316.gif)
-
-#### `-u, --update`
-
-Show an interactive UI for choosing which modules to update.
-
-Automatically updates versions referenced in the `package.json`.
-
-_Based on recommendations from the `npm` team, `npm-check` only updates using `npm install`, not `npm update`.
-To avoid using more than one version of `npm` in one directory, `npm-check` will automatically install updated modules
-using the version of `npm` installed globally._
-
-<img width="669" alt="npm-check -g -u" src="https://cloud.githubusercontent.com/assets/51505/9569921/9ca3aeb0-4f48-11e5-95ab-6fdb88124007.png">
-
-##### Update using [ied](https://github.com/alexanderGugel/ied) or [pnpm](https://github.com/rstacruz/pnpm)
-
-Set environment variable `NPM_CHECK_INSTALLER` to the name of the installer you wish to use.
-
-```bash
-NPM_CHECK_INSTALLER=pnpm npm-check -u
-## pnpm install --save-dev foo@version --color=always
-```
-
-You can also use this for dry-run testing:
-
-```bash
-NPM_CHECK_INSTALLER=echo npm-check -u
-```
-
-#### `-g, --global`
-
-Check the versions of your globally installed packages.
-
-_Tip: Use `npm-check -u -g` to do a safe interactive update of global modules, including npm itself._
-
-#### `-s, --skip-unused`
-
-By default `npm-check` will let you know if any of your modules are not being used by looking at `require` statements
-in your code.
-
-This option will skip that check.
-
-This is enabled by default when using `global` or `update`.
-
-#### `-p, --production`
-
-By default `npm-check` will look at packages listed as `dependencies` and `devDependencies`.
-
-This option will let it ignore outdated and unused checks for packages listed as `devDependencies`.
-
-#### `-i, --ignore`
-
-Ignore dependencies that match specified glob.
-
-`$ npm-check -i babel-*` will ignore all dependencies starting with 'babel-'.
-
-#### `-E, --save-exact`
-
-Install packages using `--save-exact`, meaning exact versions will be saved in package.json.
-
-Applies to both `dependencies` and `devDependencies`.
-
-#### `--color, --no-color`
-
-Enable or disable color support.
-
-By default `npm-check` uses colors if they are available.
-
-#### `--emoji, --no-emoji`
-
-Enable or disable emoji support. Useful for terminals that don't support them. Automatically disabled in CI servers.
-
-#### `--spinner, --no-spinner`
-
-Enable or disable the spinner. Useful for terminals that don't support them. Automatically disabled in CI servers.
-
-
-
-
-### API
-
-The API is here in case you want to wrap this with your CI toolset.
-
-```js
-const npmCheck = require('npm-check');
-
-npmCheck(options)
-  .then(currentState => console.log(currentState.get('packages')));
-```
-
-#### `global`
-
-* Check global modules.
-* default is `false`
-* `cwd` is automatically set with this option.
-
-#### `update`
-
-* Interactive update.
-* default is `false`
-
-#### `skipUnused`
-
-* Skip checking for unused packages.
-* default is `false`
-
-#### `ignoreDev`
-
-* Ignore `devDependencies`.
-* This is called `--production` on the command line to match `npm`.
-* default is `false`
-
-#### `cwd`
-
-* Override where `npm-check` checks.
-* default is `process.cwd()`
-
-#### `saveExact`
-
-* Update package.json with exact version `x.y.z`  instead of semver range `^x.y.z`.
-* default is `false`
-
-
-#### `currentState`
-
-The result of the promise is a `currentState` object, look in [state.js](https://github.com/dylang/npm-check/blob/master/lib/util/state.js) to see how it works.
-
-You will probably want `currentState.get('packages')` to get an array of packages and the state of each of them.
-
-Each item in the array will look like the following:
-
-```js
-{
-  moduleName: 'lodash',                 // name of the module.
-  homepage: 'https://lodash.com/',      // url to the home page.
-  regError: undefined,                  // error communicating with the registry
-  pkgError: undefined,                  // error reading the package.json
-  latest: '4.7.0',                      // latest according to the registry.
-  installed: '4.6.1',                   // version installed
-  isInstalled: true,                    // Is it installed?
-  notInstalled: false,                  // Is it installed?
-  packageJson: '^4.6.1',                // Version or range requested in the parent package.json.
-  devDependency: false,                 // Is this a devDependency?
-  usedInScripts: undefined,             // Array of `scripts` in package.json that use this module.
-  mismatch: false,                      // Does the version installed not match the range in package.json?
-  semverValid: '4.6.1',                 // Is the installed version valid semver?
-  easyUpgrade: true,                    // Will running just `npm install` upgrade the module?
-  bump: 'minor',                        // What kind of bump is required to get the latest, such as patch, minor, major.
-  unused: false                         // Is this module used in the code?
-},
-```
-
-You will also see this if you use `--debug` on the command line.
-
-
-
-### Inspiration
-
-* [npm outdated](https://www.npmjs.com/doc/cli/npm-outdated.html) - awkward output, requires --depth=0 to be grokable.
-* [david](https://github.com/alanshaw/david) - does not work with private registries.
-* [update-notifier](https://github.com/yeoman/update-notifier) - for single modules, not everything in package.json.
-* [depcheck](https://github.com/depcheck/depcheck) - only part of the puzzle. npm-check uses depcheck.
-
-
-
-
-
-### About the Author
-
-Hi! Thanks for checking out this project! My name is **Dylan Greene**. When not overwhelmed with my two young kids I enjoy contributing
-to the open source community. I'm also a tech lead at [Opower](https://opower.com/). [![@dylang](https://img.shields.io/badge/github-dylang-green.svg)](https://github.com/dylang) [![@dylang](https://img.shields.io/badge/twitter-dylang-blue.svg)](https://twitter.com/dylang)
-
-Here's some of my other Node projects:
-
-| Name | Description | npm&nbsp;Downloads |
-|---|---|---|
-| [`grunt‑notify`](https://github.com/dylang/grunt-notify) | Automatic desktop notifications for Grunt errors and warnings. Supports OS X, Windows, Linux. | [![grunt-notify](https://img.shields.io/npm/dm/grunt-notify.svg?style=flat-square)](https://www.npmjs.org/package/grunt-notify) |
-| [`shortid`](https://github.com/dylang/shortid) | Amazingly short non-sequential url-friendly unique id generator. | [![shortid](https://img.shields.io/npm/dm/shortid.svg?style=flat-square)](https://www.npmjs.org/package/shortid) |
-| [`space‑hogs`](https://github.com/dylang/space-hogs) | Discover surprisingly large directories from the command line. | [![space-hogs](https://img.shields.io/npm/dm/space-hogs.svg?style=flat-square)](https://www.npmjs.org/package/space-hogs) |
-| [`rss`](https://github.com/dylang/node-rss) | RSS feed generator. Add RSS feeds to any project. Supports enclosures and GeoRSS. | [![rss](https://img.shields.io/npm/dm/rss.svg?style=flat-square)](https://www.npmjs.org/package/rss) |
-| [`grunt‑prompt`](https://github.com/dylang/grunt-prompt) | Interactive prompt for your Grunt config using console checkboxes, text input with filtering, password fields. | [![grunt-prompt](https://img.shields.io/npm/dm/grunt-prompt.svg?style=flat-square)](https://www.npmjs.org/package/grunt-prompt) |
-| [`xml`](https://github.com/dylang/node-xml) | Fast and simple xml generator. Supports attributes, CDATA, etc. Includes tests and examples. | [![xml](https://img.shields.io/npm/dm/xml.svg?style=flat-square)](https://www.npmjs.org/package/xml) |
-| [`changelog`](https://github.com/dylang/changelog) | Command line tool (and Node module) that generates a changelog in color output, markdown, or json for modules in npmjs.org's registry as well as any public github.com repo. | [![changelog](https://img.shields.io/npm/dm/changelog.svg?style=flat-square)](https://www.npmjs.org/package/changelog) |
-| [`grunt‑attention`](https://github.com/dylang/grunt-attention) | Display attention-grabbing messages in the terminal | [![grunt-attention](https://img.shields.io/npm/dm/grunt-attention.svg?style=flat-square)](https://www.npmjs.org/package/grunt-attention) |
-| [`observatory`](https://github.com/dylang/observatory) | Beautiful UI for showing tasks running on the command line. | [![observatory](https://img.shields.io/npm/dm/observatory.svg?style=flat-square)](https://www.npmjs.org/package/observatory) |
-| [`anthology`](https://github.com/dylang/anthology) | Module information and stats for any @npmjs user | [![anthology](https://img.shields.io/npm/dm/anthology.svg?style=flat-square)](https://www.npmjs.org/package/anthology) |
-| [`grunt‑cat`](https://github.com/dylang/grunt-cat) | Echo a file to the terminal. Works with text, figlets, ascii art, and full-color ansi. | [![grunt-cat](https://img.shields.io/npm/dm/grunt-cat.svg?style=flat-square)](https://www.npmjs.org/package/grunt-cat) |
-
-_This list was generated using [anthology](https://github.com/dylang/anthology)._
-
-
-### License
-Copyright (c) 2016 Dylan Greene, contributors.
-
-Released under the [MIT license](https://tldrlegal.com/license/mit-license).
-
-Screenshots are [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/) (Attribution-ShareAlike).
-
-***
-_Generated using [grunt-readme](https://github.com/jonschlinkert/grunt-readme) with [grunt-templates-dylang](https://github.com/dylang/grunt-templates-dylang) on Thursday, April 7, 2016._
-_To make changes to this document look in `/templates/readme/`
-

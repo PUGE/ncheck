@@ -1,17 +1,10 @@
 'use strict';
 const fs = require("fs") 
-const ora = require('ora');
-
-function skipUnused(currentState) {
-  return currentState.get('skipUnused') ||        // 跳过检查未使用包
-      currentState.get('global') ||               // 检查全局模块
-      currentState.get('update') ||               // 仅检查更新
-      !currentState.get('cwdPackageJson').name;   // 找不到 package.json
-}
-
+const ora = require('ora')
 
 function checkUnused(currentState, allDependenciesList) {
-  if (skipUnused(currentState)) {
+  // 判断是否需要检查未引用模块
+  if (!currentState.get('unused')) {
     return
   }
   // 排除模块

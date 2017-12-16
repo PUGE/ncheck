@@ -4,12 +4,10 @@ const debug = require('./debug');
 
 // 默认设置
 const defaultOptions = {
-  update: false,
   global: false,
   cwd: process.cwd(),
   nodeModulesPath: false,
-  skipUnused: false,
-  ignoreDev: false,
+  unused: false,
   forceColor: false,
   saveExact: false,
   debug: false,

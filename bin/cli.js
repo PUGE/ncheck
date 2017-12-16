@@ -19,13 +19,10 @@ const cli = meow({
       检查哪个目录. 默认为当前目录. 使用 -g 检查全局模块.
 
     Options
-      -u, --update          只检查更新.
       -g, --global          检查全局模块.
       -s, --skip-unused     跳过检查未使用的模块.
       -p, --production      跳过检查开发版本.
-      -i, --ignore          Ignore dependencies based on succeeding glob.
       -E, --save-exact      在package.json中使用精确版本(x.y.z)而不是(^x.y.z).
-      --no-color            禁用彩色文字.
       --debug               调试输出模式.
 
     示例
@@ -35,9 +32,8 @@ const cli = meow({
   `},
   {
     alias: {
-      u: 'update',
+      u: 'unused',
       g: 'global',
-      s: 'skip-unused',
       p: 'production',
       E: 'save-exact',
       i: 'ignore'
@@ -47,12 +43,10 @@ const cli = meow({
       spinner: !isCI
     },
     boolean: [
-      'update',
+      'unused',
       'global',
-      'skip-unused',
       'production',
       'save-exact',
-      'color',
       'spinner'
     ],
     string: [
@@ -62,10 +56,8 @@ const cli = meow({
 
 const options = {
   cwd: cli.input[0] || cli.flags.dir,
-  update: cli.flags.update,
   global: cli.flags.global,
-  skipUnused: cli.flags.skipUnused,
-  ignoreDev: cli.flags.production,
+  unused: cli.flags.unused,
   saveExact: cli.flags.saveExact,
   installer: process.env.NPM_CHECK_INSTALLER || 'npm',
   debug: cli.flags.debug,
@@ -82,10 +74,11 @@ if (options.debug) {
 nCheck(options)
   .then(currentState => {
     // 判断是否为只检查更新模式
-    if (options.update) {
-      return interactiveUpdate(currentState);
+    // 待优化
+    if (options.unused || options.global || options.saveExact || options.installer || options.debug || options.spinner || options.ignore) {
+      return staticOutput(currentState);
     }
-    return staticOutput(currentState);
+    return interactiveUpdate(currentState);
   })
   .catch(err => {
       console.log(err.message);

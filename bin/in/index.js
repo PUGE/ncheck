@@ -118,10 +118,6 @@ module.exports = function (currentState) {
         return currentState.get('globalPackages');
       }
 
-      if (currentState.get('ignoreDev')) {
-        return pkg.dependencies;
-      }
-
       return merge(pkg.dependencies, pkg.devDependencies);
     }
 
