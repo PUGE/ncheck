@@ -12,18 +12,23 @@ function install(packages, currentState) {
     const installer = currentState.get('installer');
     const installGlobal = currentState.get('global') ? '--global' : null;
     const saveExact = currentState.get('saveExact') ? '--save-exact' : null;
-    const color = chalk.supportsColor ? '--color=always' : null;
-
-    const npmArgs = ['install']
+    let npmArgs = null
+    // 待优化
+    if (installer === 'npm') {
+      npmArgs = ['install']
         .concat(installGlobal)
         .concat(saveExact)
         .concat(packages)
-        .concat(color)
         .filter(Boolean);
+    } else {
+      npmArgs = ['add']
+        .concat(installGlobal)
+        .filter(Boolean);
+    }
 
     console.log('');
     console.log(`$ ${chalk.green(installer)} ${chalk.green(npmArgs.join(' '))}`);
-    const spinner = ora(`Installing using ${chalk.green(installer)}...`);
+    const spinner = ora(`正在通过 ${chalk.green(installer)} 安装更新包!`);
     spinner.enabled = spinner.enabled && currentState.get('spinner');
     spinner.start();
 

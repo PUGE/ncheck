@@ -9,7 +9,7 @@ const stripAnsi = require('strip-ansi');
 
 const UI_GROUPS = [
     {
-        title: chalk.bold.underline.green('Update package.json to match version installed.'),
+        title: chalk.bold.underline.green('更新package.json匹配安装版.'),
         filter: {mismatch: true, bump: null}
     },
     {
@@ -97,10 +97,6 @@ function createChoices(packages, options) {
 function interactive(currentState) {
     const packages = currentState.get('packages');
 
-    if (currentState.get('debug')) {
-        console.log('packages', packages);
-    }
-
     const choicesGrouped = UI_GROUPS.map(group => createChoices(packages, group))
         .filter(Boolean);
 
@@ -115,16 +111,15 @@ function interactive(currentState) {
     choices.push(unselectable({title: '空格(Space)勾选. 回车(Enter)开始更新. Control-C放弃操作.'}));
 
     const questions = [
-        {
-            name: 'packages',
-            message: '勾选需要更新的模块.',
-            type: 'checkbox',
-            choices: choices.concat(unselectable()),
-            pageSize: process.stdout.rows - 2
-        }
+      {
+        name: 'packages',
+        message: '勾选需要更新的模块.',
+        type: 'checkbox',
+        choices: choices.concat(unselectable()),
+        pageSize: process.stdout.rows - 2
+      }
     ];
-
-    return new Promise(resolve => inquirer.prompt(questions, resolve)).then(answers => {
+    return inquirer.prompt(questions).then(answers => {
         const packagesToUpdate = answers.packages;
         
         if (!packagesToUpdate || !packagesToUpdate.length) {

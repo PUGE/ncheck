@@ -1,6 +1,5 @@
 'use strict';
 const init = require('./init');
-const debug = require('./debug');
 
 // 默认设置
 const defaultOptions = {
@@ -10,7 +9,6 @@ const defaultOptions = {
   unused: false,
   forceColor: false,
   saveExact: false,
-  debug: false,
   spinner: false,
   installer: 'npm',
   ignore: [],
