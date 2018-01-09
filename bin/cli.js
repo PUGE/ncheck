@@ -5,6 +5,8 @@ const meow = require('meow');
 const isCI = require('is-ci');
 const pkg = require('../package.json');
 const nCheck = require('./index');
+const Order = require('../Order')
+const inquirer = require('inquirer')
 const staticOutput = require('./out/static-output');
 const interactiveUpdate = require('./out/interactive-update');
 const pkgDir = require('pkg-dir');
@@ -67,17 +69,28 @@ const options = {
   ignore: cli.flags.ignore
 };
 
+const questions = [
+  {
+    name: 'source',
+    message: '勾选更新检察源.',
+    type: 'list',
+    choices: ['https://registry.npmjs.org/', 'http://registry.npm.taobao.org/']
+  }
+]
 
-nCheck(options)
-  .then(currentState => {
-    // 判断是否为只检查更新模式
-    // 待优化
-    if (options.unused || options.global) {
-      return staticOutput(currentState);
-    }
-    return interactiveUpdate(currentState);
-  })
-  .catch(err => {
-      console.log(err.message);
-      process.exit(1);
-  });
+inquirer.prompt(questions).then(answers => {
+  Order.checkSource = answers.source
+  nCheck(options)
+    .then(currentState => {
+      // 判断是否为只检查更新模式
+      // 待优化
+      if (options.unused || options.global) {
+        return staticOutput(currentState);
+      }
+      return interactiveUpdate(currentState);
+    })
+    .catch(err => {
+        console.log(err.message);
+        process.exit(1);
+    });
+})

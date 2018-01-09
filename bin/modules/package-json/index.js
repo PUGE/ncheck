@@ -1,10 +1,11 @@
 'use strict';
 const got = require('got');
+const Order = require('../../../Order')
 const semver = require('semver');
 
 module.exports = (name, opts) => {
   // 模块最新版本检查地址
-  const pkgUrl = `https://registry.npmjs.org/${name}`
+  const pkgUrl = Order.checkSource + name
 	opts = Object.assign({
 		version: 'latest'
 	}, opts);
