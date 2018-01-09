@@ -1,6 +1,6 @@
 'use strict';
 const got = require('got');
-const Order = require('../../../Order')
+const Order = require('../../Order')
 const semver = require('semver');
 
 module.exports = (name, opts) => {
