@@ -50,10 +50,6 @@ const meowConfig = {
     ignore: {
       type: 'boolean',
       alias: 'i'
-    },
-    yarn: {
-      type: 'boolean',
-      alias: 'y'
     }
   }
 }
@@ -64,7 +60,6 @@ const options = {
   global: cli.flags.global,
   unused: cli.flags.unused,
   saveExact: cli.flags.saveExact,
-  installer: cli.flags.yarn ? 'yarn' : 'npm',
   spinner: !isCI,
   ignore: cli.flags.ignore
 };

@@ -1,4 +1,27 @@
 {
+  "_from": "ncheck",
+  "_id": "ncheck@6.1.5",
+  "_inBundle": false,
+  "_integrity": "sha512-iBL3goERbkgcv5ixkuU2HKoG7i8eSHOB/1gYJL/1jpgzrsKqSRALDOWBnMU2SCJAQ4uIAC82uGKT4rnWnWG11A==",
+  "_location": "/ncheck",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ncheck",
+    "name": "ncheck",
+    "escapedName": "ncheck",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/ncheck/-/ncheck-6.1.5.tgz",
+  "_shasum": "98f569d45b5466bc036abd4630c6bf732a2be2fa",
+  "_spec": "ncheck",
+  "_where": "C:\\Users\\PUGE\\Documents\\GitHub\\DataPlus",
   "author": {
     "name": "puge",
     "email": "my@owo.help"
@@ -9,6 +32,7 @@
   "bugs": {
     "url": "https://github.com/PUGE/ncheck/issues"
   },
+  "bundleDependencies": false,
   "dependencies": {
     "chalk": "^2.3.0",
     "co": "^4.6.0",
@@ -47,7 +71,7 @@
   "name": "ncheck",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PUGE/ncheck.git"
+    "url": "git+https://github.com/PUGE/ncheck.git"
   },
   "scripts": {
     "readme": "grunt readme",

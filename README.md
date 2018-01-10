@@ -36,7 +36,6 @@ Path
 Options
   -g, --global          检查全局模块.
   -u, --unused          检查未使用的包.
-  -y, --yarn            使用yarn安装.
   -i, --ignore          Ignore dependencies based on succeeding glob.
   -E, --save-exact      Save exact version (x.y.z) instead of caret (^x.y.z) in package.json.
 

@@ -10,7 +10,6 @@ const defaultOptions = {
   forceColor: false,
   saveExact: false,
   spinner: false,
-  installer: 'npm',
   ignore: [],
   globalPackages: {},
   cwdPackageJson: {devDependencies: {}, dependencies: {}},
