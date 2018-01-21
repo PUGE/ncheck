@@ -23,7 +23,7 @@ function install(packages, currentState, source) {
   } else {
     npmArgs = ['add']
       .concat(installGlobal)
-      .concat(packages[1])
+      .concat(packages.slice(1))
       .filter(Boolean);
   }
 
