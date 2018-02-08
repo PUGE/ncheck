@@ -17,7 +17,7 @@
     "got": "8.0.3",
     "inquirer": "5.0.1",
     "is-ci": "^1.0.8",
-    "lodash": "^4.7.0",
+    "lodash": "4.17.5",
     "meow": "^4.0.0",
     "merge-options": "^1.0.0",
     "minimatch": "^3.0.2",
@@ -56,5 +56,5 @@
   },
   "types": "./index.d.ts",
   "typings": "./index.d.ts",
-  "version": "6.2.3"
+  "version": "6.2.4"
 }
